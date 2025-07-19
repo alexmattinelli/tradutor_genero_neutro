@@ -3,28 +3,102 @@
 <head>
     <title>Tradutor Neutro</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        textarea { width: 100%; height: 100px; margin: 10px 0; }
-        .traducao { background: #f5f5f5; padding: 15px; margin: 20px 0; }
-        .mensagem { color: green; margin: 10px 0; }
-        button, .btn { 
-            margin-top: 10px; padding: 8px 15px; 
-            background: #2c3e50; color: white; border: none; cursor: pointer;
+        body {
+            /* Fundo amarelo sólido igual ao dos cards de estudo */
+            background: #fff9c4;  /* Amarelo claro */
+            font-family: 'Inter', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #000;
         }
-        .btn-estudos { background: #2c3e50; }
+        
+        h1 {
+            color: #000;
+            border-bottom: 2px solid #9c27b0;
+            padding-bottom: 10px;
+        }
+        
+        .card {
+            background: #f9fbe7;  /* Amarelo mais claro para os cards */
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            background: white;
+        }
+        
+        .traducao {
+            background: white;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #ffeb3b;  /* Amarelo mais forte */
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .mensagem {
+            color: #4caf50;
+            margin: 10px 0;
+            padding: 10px;
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+        
+        button, .btn {
+            margin-top: 10px;
+            padding: 12px 20px;
+            background: #9c27b0;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        button:hover, .btn:hover {
+            background: #7b1fa2;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        /* Import da fonte Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
     </style>
 </head>
 <body>
-    <h1>📝Tradutor de Gênero Neutro</h1>
-    <a href="/estudos" class="btn btn-estudos">📖 Ir para Estudos</a>
+    <div class="card">
+        <h1>📝 Tradutor de Gênero Neutro</h1>
+        <a href="/estudos" class="btn">📖 Ir para Estudos</a>
+    </div>
     
-    <form method="POST">
-        <textarea name="texto" placeholder="Digite seu texto aqui..." required>{{ texto_original if texto_original else '' }}</textarea>
-        <button type="submit">Traduzir</button>
-    </form>
+    <div class="card">
+        <form method="POST">
+            <textarea name="texto" placeholder="Digite seu texto aqui..." required>{{ texto_original if texto_original else '' }}</textarea>
+            <button type="submit">Traduzir</button>
+        </form>
+    </div>
     
     {% if traducao %}
-    <div class="traducao">
+    <div class="card traducao">
         <h3>Tradução:</h3>
         <p>{{ traducao }}</p>
         
@@ -38,7 +112,9 @@
     {% endif %}
     
     {% if request.args.get('sucesso') %}
-    <div class="mensagem">Correção salva com sucesso!</div>
+    <div class="card mensagem">
+        Correção salva com sucesso!
+    </div>
     {% endif %}
 </body>
 </html>
