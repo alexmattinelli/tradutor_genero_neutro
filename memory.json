@@ -1,0 +1,26 @@
+{
+  "substituicoes": {
+    "o": "ê",
+    "a": "ê",
+    "os": "es",
+    "as": "es",
+    "ele": "elu",
+    "ela": "elu",
+    "dele": "delu",
+    "dela": "delu",
+    "meu": "minhe",
+    "minha": "minhe",
+    "todo": "tode",
+    "toda": "tode",
+    "todos": "todes",
+    "todas": "todes",
+    "menino": "menine",
+    "menina": "menine",
+    "professor": "professore",
+    "professora": "professore",
+    "aquele": "aquelu",
+    "algo": "algo",
+    "a vida": "a vida"
+  },
+  "erros_comuns": {}
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tradutor Neutro</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        textarea { width: 100%; height: 100px; margin: 10px 0; }
+        .traducao { background: #f5f5f5; padding: 15px; margin: 20px 0; }
+        .mensagem { color: green; margin: 10px 0; }
+        button, .btn { 
+            margin-top: 10px; padding: 8px 15px; 
+            background: #2c3e50; color: white; border: none; cursor: pointer;
+        }
+        .btn-estudos { background: #2c3e50; }
+    </style>
+</head>
+<body>
+    <h1>📝Tradutor de Gênero Neutro</h1>
+    <a href="/estudos" class="btn btn-estudos">📖 Ir para Estudos</a>
+    
+    <form method="POST">
+        <textarea name="texto" placeholder="Digite seu texto aqui..." required>{{ texto_original if texto_original else '' }}</textarea>
+        <button type="submit">Traduzir</button>
+    </form>
+    
+    {% if traducao %}
+    <div class="traducao">
+        <h3>Tradução:</h3>
+        <p>{{ traducao }}</p>
+        
+        <form method="POST">
+            <h4>Corrigir tradução?</h4>
+            <p>Digite no formato: <strong>palavra original>forma neutra</strong></p>
+            <input type="text" name="correcao" placeholder="Ex: amigo>amigue" required>
+            <button type="submit">Salvar Correção</button>
+        </form>
+    </div>
+    {% endif %}
+    
+    {% if request.args.get('sucesso') %}
+    <div class="mensagem">Correção salva com sucesso!</div>
+    {% endif %}
+</body>
+</html>
