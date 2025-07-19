@@ -16,9 +16,22 @@ class TradutorIA:
                 self.erros_comuns = data.get("erros_comuns", defaultdict(int))
         else:
             self.substituicoes = {
+                # Artigos e pronomes
                 "o": "ê", "a": "ê", "os": "es", "as": "es",
+                "um": "ume", "uma": "ume", "uns": "umes", "umas": "umes",
                 "ele": "elu", "ela": "elu", "dele": "delu", "dela": "delu",
+                "aquele": "aquelu", "aquela": "aquelu",
+                
+                # Substantivos biformes (com flexão de gênero)
                 "menino": "menine", "menina": "menine",
+                "garoto": "garote", "garota": "garote",
+                "vovô": "vovôe", "vovó": "vovôe",
+                "pai": "pae", "mãe": "pae",
+                "paternidade": "naternidade", "maternidade": "naternidade",
+                "ator": "atore", "atriz": "atore",  # Caso especial
+                
+                # Adjetivos
+                "bonito": "bonite", "bonita": "bonite",
                 "todos": "todes", "todas": "todes"
             }
             self.erros_comuns = defaultdict(int)
@@ -44,35 +57,53 @@ class TradutorIA:
         self.erros_comuns[palavra.lower()] += 1
         self.salvar_memoria()
 
+    def traduzir_palavra(self, palavra):
+        # Verifica se é uma contração
+        if '-' in palavra:
+            partes = palavra.split('-')
+            return '-'.join([self.traduzir_palavra(p) for p in partes])
+            
+        original = palavra.lower()
+        
+        # 1. Verifica substituições específicas na memória
+        if original in self.substituicoes:
+            return self.substituicoes[original]
+            
+        # 2. Regras para palavras biformes (com flexão de gênero)
+        # Padrão: terminações com 'o'/'a' precedidas por consoante
+        if re.search(r'[^aeiouãõâôêáéíóú]o$', original):
+            return palavra[:-1] + 'e'
+        elif re.search(r'[^aeiouãõâôêáéíóú]a$', original):
+            return palavra[:-1] + 'e'
+            
+        # 3. Para plural (os/as)
+        if original.endswith('os'):
+            return palavra[:-2] + 'es'
+        elif original.endswith('as'):
+            return palavra[:-2] + 'es'
+            
+        # 4. Casos especiais (como "filho" -> "filhe")
+        if original in ['filho', 'filha']:
+            return 'filhe'
+            
+        # 5. Mantém a palavra original se não precisar de neutralização
+        return palavra
+
     def prever(self, texto):
-        palavras = texto.split()
+        # Preserva pontuação e espaçamento
+        palavras = re.findall(r"(\w+|\W+)", texto)
         resultado = []
         
         for palavra in palavras:
-            original = palavra.lower()
-            
-            # Verifica contrações
-            if '-' in palavra:
-                partes = [self.prever(p) for p in palavra.split('-')]
-                resultado.append('-'.join(partes))
-                continue
-                
-            # Verifica substituições conhecidas
-            if original in self.substituicoes:
-                resultado.append(self.substituicoes[original])
-                continue
-                
-            # Aplica regras gerais
-            modificada = palavra
-            if original.endswith('o'):
-                modificada = palavra[:-1] + 'e'
-            elif original.endswith('a'):
-                modificada = palavra[:-1] + 'e'
-            elif original.endswith('os'):
-                modificada = palavra[:-2] + 'es'
-            elif original.endswith('as'):
-                modificada = palavra[:-2] + 'es'
-                
-            resultado.append(modificada)
+            if palavra.strip():  # Se for palavra (não apenas espaços/pontuação)
+                trad = self.traduzir_palavra(palavra)
+                # Preserva capitalização
+                if palavra.istitle():
+                    trad = trad.capitalize()
+                elif palavra.isupper():
+                    trad = trad.upper()
+                resultado.append(trad)
+            else:
+                resultado.append(palavra)
         
-        return ' '.join(resultado)
+        return ''.join(resultado)
