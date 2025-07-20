@@ -279,7 +279,6 @@ class TradutorIA:
         return palavra
 
     def prever(self, texto):
-<<<<<<< HEAD
         tokens = re.findall(r"(\w+|\W+)", texto)
         resultado = []
         
