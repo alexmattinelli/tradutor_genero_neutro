@@ -73,7 +73,6 @@ class TradutorIA:
         # Cria a pasta config se não existir
         os.makedirs("config", exist_ok=True)
         
-<<<<<<< HEAD
         self.memory_file = "config/memory.json"
         self.excecoes_file = "config/excecoes.json"
         self.palavras_com_genero_file = "config/palavras_com_genero.json"
