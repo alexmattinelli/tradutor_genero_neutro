@@ -73,6 +73,7 @@ class TradutorIA:
         # Cria a pasta config se não existir
         os.makedirs("config", exist_ok=True)
         
+<<<<<<< HEAD
         self.memory_file = "config/memory.json"
         self.excecoes_file = "config/excecoes.json"
         self.palavras_com_genero_file = "config/palavras_com_genero.json"
@@ -106,6 +107,34 @@ class TradutorIA:
         except Exception as e:
             print(f"Erro ao carregar memory.json: {e}")
             self.substituicoes = {}
+=======
+    def carregar_memoria(self):
+        if os.path.exists(self.memory_file):
+            with open(self.memory_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                self.substituicoes = data.get("substituicoes", {})
+                self.erros_comuns = data.get("erros_comuns", defaultdict(int))
+        else:
+            self.substituicoes = {
+                # Artigos e pronomes
+                "o": "ê", "a": "ê", "os": "es", "as": "es",
+                "um": "ume", "uma": "ume", "uns": "umes", "umas": "umes",
+                "ele": "elu", "ela": "elu", "dele": "delu", "dela": "delu",
+                "aquele": "aquelu", "aquela": "aquelu",
+                
+                # Substantivos biformes (com flexão de gênero)
+                "menino": "menine", "menina": "menine",
+                "garoto": "garote", "garota": "garote",
+                "vovô": "vovôe", "vovó": "vovôe",
+                "pai": "pae", "mãe": "pae",
+                "paternidade": "naternidade", "maternidade": "naternidade",
+                "ator": "atore", "atriz": "atore",  # Caso especial
+                
+                # Adjetivos
+                "bonito": "bonite", "bonita": "bonite",
+                "todos": "todes", "todas": "todes"
+            }
+>>>>>>> 60c178fd3c854ab0b3b6fc0903989370af2386aa
             self.erros_comuns = defaultdict(int)
 
         # Carrega exceções que não devem ser traduzidas
@@ -219,7 +248,40 @@ class TradutorIA:
             
         return palavra
 
+    def traduzir_palavra(self, palavra):
+        # Verifica se é uma contração
+        if '-' in palavra:
+            partes = palavra.split('-')
+            return '-'.join([self.traduzir_palavra(p) for p in partes])
+            
+        original = palavra.lower()
+        
+        # 1. Verifica substituições específicas na memória
+        if original in self.substituicoes:
+            return self.substituicoes[original]
+            
+        # 2. Regras para palavras biformes (com flexão de gênero)
+        # Padrão: terminações com 'o'/'a' precedidas por consoante
+        if re.search(r'[^aeiouãõâôêáéíóú]o$', original):
+            return palavra[:-1] + 'e'
+        elif re.search(r'[^aeiouãõâôêáéíóú]a$', original):
+            return palavra[:-1] + 'e'
+            
+        # 3. Para plural (os/as)
+        if original.endswith('os'):
+            return palavra[:-2] + 'es'
+        elif original.endswith('as'):
+            return palavra[:-2] + 'es'
+            
+        # 4. Casos especiais (como "filho" -> "filhe")
+        if original in ['filho', 'filha']:
+            return 'filhe'
+            
+        # 5. Mantém a palavra original se não precisar de neutralização
+        return palavra
+
     def prever(self, texto):
+<<<<<<< HEAD
         tokens = re.findall(r"(\w+|\W+)", texto)
         resultado = []
         
@@ -433,3 +495,22 @@ class Chatbot:
             f"2. Pesquisar online com 'pesquisar {mensagem}'\n"
             f"3. Pedir ajuda sobre 'pronomes' ou 'artigos'"
         )
+=======
+        # Preserva pontuação e espaçamento
+        palavras = re.findall(r"(\w+|\W+)", texto)
+        resultado = []
+        
+        for palavra in palavras:
+            if palavra.strip():  # Se for palavra (não apenas espaços/pontuação)
+                trad = self.traduzir_palavra(palavra)
+                # Preserva capitalização
+                if palavra.istitle():
+                    trad = trad.capitalize()
+                elif palavra.isupper():
+                    trad = trad.upper()
+                resultado.append(trad)
+            else:
+                resultado.append(palavra)
+        
+        return ''.join(resultado)
+>>>>>>> 60c178fd3c854ab0b3b6fc0903989370af2386aa
