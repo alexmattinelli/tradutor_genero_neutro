@@ -106,7 +106,7 @@ class TradutorIA:
         except Exception as e:
             print(f"Erro ao carregar memory.json: {e}")
             self.substituicoes = {}
-=======
+
     def carregar_memoria(self):
         if os.path.exists(self.memory_file):
             with open(self.memory_file, 'r', encoding='utf-8') as f:
@@ -125,7 +125,7 @@ class TradutorIA:
                 "menino": "menine", "menina": "menine",
                 "garoto": "garote", "garota": "garote",
                 "vovô": "vovôe", "vovó": "vovôe",
-                "pai": "pae", "mãe": "pae",
+                "pai": "nae", "mãe": "nae",
                 "paternidade": "naternidade", "maternidade": "naternidade",
                 "ator": "atore", "atriz": "atore",  # Caso especial
                 
@@ -133,7 +133,6 @@ class TradutorIA:
                 "bonito": "bonite", "bonita": "bonite",
                 "todos": "todes", "todas": "todes"
             }
->>>>>>> 60c178fd3c854ab0b3b6fc0903989370af2386aa
             self.erros_comuns = defaultdict(int)
 
         # Carrega exceções que não devem ser traduzidas
@@ -494,7 +493,7 @@ class Chatbot:
             f"2. Pesquisar online com 'pesquisar {mensagem}'\n"
             f"3. Pedir ajuda sobre 'pronomes' ou 'artigos'"
         )
-=======
+        
         # Preserva pontuação e espaçamento
         palavras = re.findall(r"(\w+|\W+)", texto)
         resultado = []
@@ -512,4 +511,3 @@ class Chatbot:
                 resultado.append(palavra)
         
         return ''.join(resultado)
->>>>>>> 60c178fd3c854ab0b3b6fc0903989370af2386aa
