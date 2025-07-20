@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lumi - Assistente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #fff9c4;
+            font-family: 'Inter', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background: #f9fbe7;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #chat-messages {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: white;
+            border-radius: 4px;
+        }
+        .chat-message {
+            margin: 10px 0;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 75%;
+        }
+        .user-message {
+            background: #e3f2fd;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        .bot-message {
+            background: #f1f1f1;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+        #chat-input {
+            width: calc(100% - 90px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Inter';
+        }
+        .btn-voltar {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #7b1fa2;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="btn-voltar">← Voltar</a>
+    
+    <div class="card">
+        <h1>💬 Lune - Assistente de Linguagem Neutra</h1>
+        <div id="chat-messages">
+            <div class="chat-message bot-message">
+                <strong>Lune:</strong> Olá! Sou Lune, sue assistente para traduções neutras. 
+                Posso te explicar sobre pronomes neutros, linguagem inclusiva e como usar o tradutor.
+                Pergunte-me qualquer coisa!
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="chat-input" placeholder="Digite sua mensagem...">
+            <button onclick="enviarMensagem()" style="padding: 10px 20px; background: #2196f3; color: white; border: none; border-radius: 4px;">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        async function enviarMensagem() {
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    
+    if (message) {
+        const chatDiv = document.getElementById('chat-messages');
+        
+        // Adiciona mensagem do usuário (com tratamento de gírias)
+        const mensagemExibida = message.replace(/\b(vc|tbm|blz)\b/gi, 
+            m => `<span style="color:#9c27b0">${m}</span>`);
+        
+        chatDiv.innerHTML += `
+            <div class="chat-message user-message">
+                <strong>Você:</strong> ${mensagemExibida}
+            </div>`;
+        
+        input.value = '';
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+        
+        // Mostra que está processando
+        chatDiv.innerHTML += `
+            <div class="chat-message bot-message">
+                <em>Lune está pensando...</em>
+            </div>`;
+        
+        fetch('/api/chatbot', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({mensagem: message})
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Remove "pensando..." e adiciona resposta formatada
+            chatDiv.removeChild(chatDiv.lastChild);
+            
+            // Converte Markdown para HTML
+            let resposta = data.resposta
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/`(.*?)`/g, '<code>$1</code>');
+            
+            chatDiv.innerHTML += `
+                <div class="chat-message bot-message">
+                    <strong>Lune:</strong> ${resposta}
+                </div>`;
+            
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        });
+    }
+}
+
+{% if session.admin_logado %}
+<a href="/admin" class="btn">Admin</a>
+{% endif %}
+
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') enviarMensagem();
+        });
+    </script>
+</body>
+</html>

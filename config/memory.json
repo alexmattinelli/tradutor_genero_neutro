@@ -1,0 +1,25 @@
+{
+  "substituicoes": {
+    "ele": "elu",
+    "ela": "elu",
+    "dele": "delu",
+    "dela": "delu",
+    "aquele": "aquelu",
+    "aquela": "aquelu",
+    "menino": "menine",
+    "menina": "menine",
+    "garoto": "garote",
+    "garota": "garote",
+    "ator": "atore",
+    "atriz": "atore",
+    "bonito": "bonite",
+    "bonita": "bonite",
+    "todos": "todes",
+    "todas": "todes",
+    "amiga": "amigue",
+    "amigo": "amigue",
+    "casa": "casa",
+    "ta": "ta"
+  },
+  "erros_comuns": {}
+}

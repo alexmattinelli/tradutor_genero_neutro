@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tradutor Neutro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #fff9c4;
+            font-family: 'Inter', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background: #f9fbe7;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Inter';
+        }
+        .traducao {
+            background: white;
+            padding: 15px;
+            border-left: 4px solid #ffeb3b;
+        }
+        button, .btn {
+            padding: 10px 20px;
+            background: #9c27b0;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn-estudos {
+            background: #7b1fa2;
+        }
+        .btn-chatbot {
+            background: #2196f3;
+        }
+        .btn-excecao {
+            background: #4caf50;
+        }
+        #chatbot-container {
+            display: none;
+            margin-top: 20px;
+        }
+        #chat-messages {
+            height: 200px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 4px;
+        }
+        .chat-message {
+            margin: 5px 0;
+            padding: 8px 12px;
+            border-radius: 18px;
+            max-width: 70%;
+        }
+        .user-message {
+            background: #e3f2fd;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        .bot-message {
+            background: #f1f1f1;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+        #chat-input {
+            width: calc(100% - 90px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>📝 Tradutor de Gênero Neutro</h1>
+        <div style="display: flex; gap: 10px;">
+    </div>
+    
+    <div class="card">
+        <form method="POST">
+            <textarea name="texto" placeholder="Digite seu texto aqui..." required>{{ texto_original if texto_original else '' }}</textarea>
+            <button type="submit">Traduzir</button>
+        </form>
+    </div>
+    
+    {% if traducao %}
+    <div class="card traducao">
+        <h3>Tradução:</h3>
+        <p>{{ traducao }}</p>
+        </div>
+   
+    <div class="card">
+        <form method="POST">
+            <h4>Corrigir tradução?</h4>
+            <input type="text" name="correcao" placeholder="Formato: original>correto" required>
+            <button type="submit">Salvar Correção</button>
+        </form>
+        
+        <div style="margin-top: 20px;">
+            <h4>Adicionar exceção (não traduzir):</h4>
+            <input type="text" id="excecaoInput" placeholder="Ex: vida">
+            <button class="btn-excecao" onclick="adicionarExcecao()">Adicionar</button>
+        </div>
+    </div>
+    {% endif %}
+    
+    <script>
+        // Funções existentes
+        async function adicionarExcecao() {
+            const palavra = document.getElementById('excecaoInput').value.trim();
+            if(palavra) {
+                const response = await fetch('/api/excecao', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({palavra: palavra})
+                });
+                
+                if(response.ok) {
+                    alert(`"${palavra}" adicionada como exceção!`);
+                    document.getElementById('excecaoInput').value = '';
+                }
+            }
+        }
+
+        // Funções do Chatbot
+        function toggleChatbot() {
+            const chatbot = document.getElementById('chatbot-container');
+            chatbot.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
+        }
+
+        async function enviarMensagemChatbot() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Adiciona mensagem do usuário
+                const chatDiv = document.getElementById('chat-messages');
+                chatDiv.innerHTML += `<div class="chat-message user-message"><strong>Você:</strong> ${message}</div>`;
+                
+                // Limpa o input
+                input.value = '';
+                
+                // Rola para baixo
+                chatDiv.scrollTop = chatDiv.scrollHeight;
+                
+                // Envia para o servidor
+                try {
+                    const response = await fetch('/api/chatbot', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({ mensagem: message })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // Adiciona resposta do bot
+                    chatDiv.innerHTML += `<div class="chat-message bot-message"><strong>Bot:</strong> ${data.resposta}</div>`;
+                    chatDiv.scrollTop = chatDiv.scrollHeight;
+                } catch (error) {
+                    console.error('Erro ao enviar mensagem:', error);
+                    chatDiv.innerHTML += `<div class="chat-message bot-message"><strong>Bot:</strong> Desculpe, estou com problemas técnicos. Tente novamente mais tarde.</div>`;
+                }
+            }
+        }
+
+{% if session.get('admin_logado') %}
+<div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <a href="/admin" class="btn" style="background: #7b1fa2;">Admin</a>
+    <a href="/logout" class="btn" style="background: #f44336;">Sair</a>
+</div>
+{% else %}
+<div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <a href="/login" class="btn" style="background: #7b1fa2;">Login Admin</a>
+</div>
+{% endif %}
+
+        // Permite enviar mensagem com Enter
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                enviarMensagemChatbot();
+            }
+        });
+    </script>
+</body>
+</html>

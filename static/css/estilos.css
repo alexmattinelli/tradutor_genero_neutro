@@ -1,0 +1,28 @@
+/* static/estilos.css */
+:root {
+  --roxo-neon: #c724f1;
+  --azul-neon: #24dbf1;
+}
+
+.neon-box {
+  border: 2px solid var(--roxo-neon);
+  box-shadow: 0 0 10px var(--azul-neon);
+  border-radius: 15px;
+}
+
+.btn-glow {
+  background: black;
+  color: white;
+  border: 1px solid var(--azul-neon);
+  transition: all 0.3s;
+}
+
+.btn-glow:hover {
+  text-shadow: 0 0 5px var(--azul-neon);
+  box-shadow: 0 0 15px var(--roxo-neon);
+}
+
+.material-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+}

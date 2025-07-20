@@ -2,43 +2,63 @@
 <html>
 <head>
     <title>Tradutor Neutro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        textarea { width: 100%; height: 100px; margin: 10px 0; }
-        .traducao { background: #f5f5f5; padding: 15px; margin: 20px 0; }
-        .mensagem { color: green; margin: 10px 0; }
-        button, .btn { 
-            margin-top: 10px; padding: 8px 15px; 
-            background: #2c3e50; color: white; border: none; cursor: pointer;
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fff9c4;
+            text-align: center;
+            padding: 50px;
         }
-        .btn-estudos { background: #2c3e50; }
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 300px;
+            margin: 40px auto;
+        }
+        .btn {
+            padding: 15px;
+            background: #9c27b0;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-tradutor { background: #7b1fa2; }
+        .btn-chatbot { background: #2196f3; }
+        .btn-estudos { background: #4caf50; }
     </style>
 </head>
 <body>
-    <h1>📝Tradutor de Gênero Neutro</h1>
-    <a href="/estudos" class="btn btn-estudos">📖 Ir para Estudos</a>
+  <!-- Título do projeto -->
+  <h1>NeutreX Lab</h1>
+
+<div style="position: absolute; top: 20px; right: 20px;">
+    <a href="/admin" class="btn" style="background: #7b1fa2;">Admin</a>
+</div>
+  
+  <!-- Imagem do logotipo -->
+  <img 
+    src="caminho/para/seu-logotipo.png" 
+    alt="Logotipo do NeutreX Lab" 
+    width="200" 
+    class="logo"
+  >
+  
+  <!-- Subtítulo -->
+  <p>Elu traduz, elu inclui, elu transforma</p>
+</body>
     
-    <form method="POST">
-        <textarea name="texto" placeholder="Digite seu texto aqui..." required>{{ texto_original if texto_original else '' }}</textarea>
-        <button type="submit">Traduzir</button>
-    </form>
-    
-    {% if traducao %}
-    <div class="traducao">
-        <h3>Tradução:</h3>
-        <p>{{ traducao }}</p>
-        
-        <form method="POST">
-            <h4>Corrigir tradução?</h4>
-            <p>Digite no formato: <strong>palavra original>forma neutra</strong></p>
-            <input type="text" name="correcao" placeholder="Ex: amigo>amigue" required>
-            <button type="submit">Salvar Correção</button>
-        </form>
+    <div class="btn-container">
+        <a href="/tradutor" class="btn btn-tradutor">✏️ Tradutor</a>
+        <a href="/chatbot" class="btn btn-chatbot">💬 Lune (Assistente)</a>
+        <a href="/estudos" class="btn btn-estudos">📚 Estudos</a>
     </div>
-    {% endif %}
-    
-    {% if request.args.get('sucesso') %}
-    <div class="mensagem">Correção salva com sucesso!</div>
-    {% endif %}
 </body>
 </html>

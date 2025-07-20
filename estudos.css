@@ -1,0 +1,11 @@
+from flask_httpauth import HTTPBasicAuth
+auth = HTTPBasicAuth()
+
+@auth.verify_password
+def verify_password(username, password):
+    return username == "admin" and password == "senha_secreta"
+
+@app.route("/admin/estudos")
+@auth.login_required
+def admin_estudos():
+    # ... resto do código

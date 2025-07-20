@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Painel de Administração</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* (Os estilos permanecem os mesmos do código anterior) */
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>⚙️ Painel de Administração</h1>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button onclick="showSection('dashboard')">Dashboard</button>
+            <button onclick="showSection('usuaries')">Pessoas Usuárias</button>
+            <button onclick="showSection('traducoes')">Traduções</button>
+            <button onclick="showSection('config')">Configurações</button>
+        </div>
+    </div>
+
+    <!-- Seção Dashboard -->
+    <div id="dashboard-section" class="section">
+        <div class="card">
+            <h2>Visão Geral</h2>
+            <div class="flex-container">
+                <div class="flex-item stats-card">
+                    <h3>Total de Pessoas Usuárias</h3>
+                    <div class="stats-number">1,245</div>
+                    <p>+15% este mês</p>
+                </div>
+                <div class="flex-item stats-card">
+                    <h3>Traduções Hoje</h3>
+                    <div class="stats-number">328</div>
+                    <p>+8% desde ontem</p>
+                </div>
+                <div class="flex-item stats-card">
+                    <h3>Exceções</h3>
+                    <div class="stats-number">87</div>
+                    <p>Última: "vida"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Atividade Recente</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Pessoa Usuária</th>
+                        <th>Ação</th>
+                        <th>Detalhes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2023-11-15 14:32</td>
+                        <td>ana.silva@email.com</td>
+                        <td>Tradução</td>
+                        <td>Texto de 245 caracteres</td>
+                    </tr>
+                    <tr>
+                        <td>2023-11-15 13:18</td>
+                        <td>admin</td>
+                        <td>Adicionou exceção</td>
+                        <td>Palavra: "vida"</td>
+                    </tr>
+                    <tr>
+                        <td>2023-11-15 11:45</td>
+                        <td>carlos.pereira@email.com</td>
+                        <td>Registro</td>
+                        <td>Nova pessoa usuária</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Seção Pessoas Usuárias -->
+    <div id="usuaries-section" class="section" style="display:none;">
+        <div class="card">
+            <h2>Gerenciar Pessoas Usuárias</h2>
+            <div class="form-group">
+                <input type="text" placeholder="Pesquisar pessoas usuárias..." style="width: 300px;">
+                <button class="btn-success">Buscar</button>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Registro</th>
+                        <th>Tipo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Administradore</td>
+                        <td>admin@admin.com</td>
+                        <td>2023-01-15</td>
+                        <td>Admin</td>
+                        <td>
+                            <button class="btn-warning">Editar</button>
+                            <button disabled>Remover</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Ana Silva</td>
+                        <td>ana.silva@email.com</td>
+                        <td>2023-05-22</td>
+                        <td>Pessoa Usuária</td>
+                        <td>
+                            <button class="btn-warning">Editar</button>
+                            <button class="btn-danger">Remover</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="margin-top: 20px;">
+                <h3>Adicionar Nova Pessoa Usuária</h3>
+                <form>
+                    <div class="form-group">
+                        <label>Nome:</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha:</label>
+                        <input type="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo:</label>
+                        <select>
+                            <option>Pessoa Usuária</option>
+                            <option>Moderadore</option>
+                            <option>Administradore</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-success">Criar Pessoa Usuária</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção Traduções -->
+    <div id="traducoes-section" class="section" style="display:none;">
+        <div class="card">
+            <h2>Histórico de Traduções</h2>
+            <div class="form-group">
+                <input type="text" placeholder="Pesquisar traduções..." style="width: 300px;">
+                <button class="btn-success">Buscar</button>
+                <button class="btn-warning">Exportar CSV</button>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data</th>
+                        <th>Pessoa Usuária</th>
+                        <th>Texto Original</th>
+                        <th>Tradução</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1054</td>
+                        <td>2023-11-15 09:32</td>
+                        <td>ana.silva@email.com</td>
+                        <td>Os alunos estão estudando...</td>
+                        <td>As alunas e os alunos estão estudando...</td>
+                    </tr>
+                    <tr>
+                        <td>1053</td>
+                        <td>2023-11-14 16:45</td>
+                        <td>carlos.pereira@email.com</td>
+                        <td>Todos os funcionários...</td>
+                        <td>Todas as funcionárias e todos os funcionários...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="card">
+            <h2>Gerenciar Exceções</h2>
+            <div class="form-group">
+                <input type="text" id="nova-excecao" placeholder="Digite uma palavra para não traduzir">
+                <button class="btn-success" onclick="adicionarExcecao()">Adicionar</button>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Palavra</th>
+                        <th>Adicionada em</th>
+                        <th>Por</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>vida</td>
+                        <td>2023-11-15</td>
+                        <td>admin</td>
+                        <td><button class="btn-danger">Remover</button></td>
+                    </tr>
+                    <tr>
+                        <td>água</td>
+                        <td>2023-11-10</td>
+                        <td>moderador</td>
+                        <td><button class="btn-danger">Remover</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Seção Configurações -->
+    <div id="config-section" class="section" style="display:none;">
+        <div class="card">
+            <h2>Configurações do Sistema</h2>
+            
+            <form>
+                <h3>Configurações Gerais</h3>
+                <div class="form-group">
+                    <label>Nome do Site:</label>
+                    <input type="text" value="Tradutor de Gênero Neutro">
+                </div>
+                <div class="form-group">
+                    <label>Manutenção:</label>
+                    <select>
+                        <option value="0">Site Online</option>
+                        <option value="1">Modo Manutenção</option>
+                    </select>
+                </div>
+                
+                <h3>Configurações de Tradução</h3>
+                <div class="form-group">
+                    <label>Limite de Caracteres:</label>
+                    <input type="number" value="5000">
+                </div>
+                <div class="form-group">
+                    <label>Padrão de Gênero Neutro:</label>
+                    <select>
+                        <option value="duplo">Forma Dupla (todes/todas)</option>
+                        <option value="x">Uso de 'x' (todxs)</option>
+                        <option value="e">Uso de 'e' (todes)</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-success">Salvar Configurações</button>
+            </form>
+        </div>
+        
+        <div class="card">
+            <h2>Backup do Sistema</h2>
+            <div class="alert">
+                <p>Último backup: 2023-11-14 23:00</p>
+                <button class="btn-warning">Gerar Backup Agora</button>
+                <button class="btn-success">Restaurar Backup</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Alternar entre seções
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId + '-section').style.display = 'block';
+        }
+
+        // Mostrar dashboard por padrão
+        showSection('dashboard');
+
+        // Função para adicionar exceção
+        async function adicionarExcecao() {
+            const palavra = document.getElementById('nova-excecao').value.trim();
+            if(palavra) {
+                // Simulação de requisição
+                console.log(`Adicionando exceção: ${palavra}`);
+                alert(`"${palavra}" foi adicionada como exceção!`);
+                document.getElementById('nova-excecao').value = '';
+            }
+        }
+
+        // Funções para editar/remover itens (simuladas)
+        function editarUsuario(id) {
+            console.log(`Editando pessoa usuária ${id}`);
+            alert(`Editar pessoa usuária ${id} - Funcionalidade em desenvolvimento`);
+        }
+
+        function removerUsuario(id) {
+            if(confirm(`Tem certeza que deseja remover a pessoa usuária ${id}?`)) {
+                console.log(`Removendo pessoa usuária ${id}`);
+                alert(`Pessoa usuária ${id} removide com sucesso!`);
+            }
+        }
+    </script>
+</body>
+</html>

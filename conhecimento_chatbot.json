@@ -1,0 +1,199 @@
+{
+    "metadata": {
+        "versao": "3.0",
+        "atualizado": "2023-12-01",
+        "autore": "Lumi - Assistente de Linguagem Neutra",
+        "base": "Padrão elu/delu com terminações em -e"
+    },
+    "pronomes": {
+        "pessoais": {
+            "singular": ["elu"],
+            "plural": ["elus"],
+            "exemplos": [
+                "Elu é minhe amigue → (Ele/Ela é meu/minha amigo/amiga)",
+                "Elus são bonites → (Eles/Elas são bonitos/bonitas)"
+            ]
+        },
+        "possessivos": {
+            "singular": ["delu"],
+            "plural": ["delus"],
+            "exemplos": [
+                "Isso é delu → (Isso é dele/dela)",
+                "As ideias delus → (As ideias deles/delas)"
+            ]
+        },
+        "demonstrativos": {
+            "neutros": ["aquelu"],
+            "exemplos": [
+                "Aquelu livru → (Aquele/Aquela livro)",
+                "Aquelus cadernus → (Aqueles/Aquelas cadernos/cadernas)"
+            ]
+        }
+    },
+    "substantivos": {
+        "regra_geral": "Substituir terminações -o/-a por -e",
+        "pessoas": {
+            "alune": ["aluno", "aluna"],
+            "amigue": ["amigo", "amiga"],
+            "professore": ["professor", "professora"],
+            "garote": ["garoto", "garota"],
+            "menine": ["menino", "menina"],
+            "atoru": ["ator", "atriz"],
+            "exemplos": [
+                "Ê alune estudu → (O aluno estuda/A aluna estuda)",
+                "Es professores ensinu → (Os professores ensinam/As professoras ensinam)"
+            ]
+        },
+        "familia": {
+            "filhe": ["filho", "filha"],
+            "primu": ["primo", "prima"],
+            "sobrinhe": ["sobrinho", "sobrinha"],
+            "tie": ["tio", "tia"],
+            "vovoe": ["vovô", "vovó"],
+            "exemplos": [
+                "Minhe filhe linde → (Meu filho lindo/Minha filha linda)",
+                "Ê tie queride → (O tio querido/A tia querida)"
+            ]
+        },
+        "profissoes": {
+            "doutore": ["doutor", "doutora"],
+            "enfermeire": ["enfermeiro", "enfermeira"],
+            "dentista": ["dentista"],
+            "advogade": ["advogado", "advogada"],
+            "exemplos": [
+                "Ê doutore atenciose → (O doutor atencioso/A doutora atenciosa)",
+                "Ume advogade competente → (Um advogado competente/Uma advogada competente)"
+            ]
+        }
+    },
+    "adjetivos": {
+        "regra_geral": "Substituir terminações -o/-a por -e",
+        "comuns": {
+            "bonite": ["bonito", "bonita"],
+            "inteligente": ["inteligente"],
+            "forte": ["forte"],
+            "alegre": ["alegre"],
+            "exemplos": [
+                "Ê menine bonite → (O menino bonito/A menina bonita)",
+                "Uma pessoa forte → (Uma pessoa forte)"
+            ]
+        },
+        "excecoes": [
+            "pobre",
+            "grande",
+            "feliz",
+            "superior",
+            "inferior"
+        ]
+    },
+    "artigos": {
+        "definidos": {
+            "singular": "ê",
+            "plural": "es",
+            "regra": "Usar apenas antes de palavras com flexão de gênero",
+            "exemplos": [
+                "Ê amigue chegou → (O amigo chegou/A amiga chegou)",
+                "A água (não muda)",
+                "O sol (não muda)"
+            ]
+        },
+        "indefinidos": {
+            "singular": "ume",
+            "plural": "umes",
+            "exemplos": [
+                "Ume amigue nove → (Um amigo novo/Uma amiga nova)"
+            ]
+        }
+    },
+    "verbos": {
+        "conjugacao": {
+            "presente": [
+                "elu fala",
+                "elu come",
+                "elu vive"
+            ],
+            "passado": [
+                "elu falou",
+                "elu comeu",
+                "elu viveu"
+            ],
+            "futuro": [
+                "elu falará",
+                "elu comerá",
+                "elu viverá"
+            ]
+        },
+        "regras": "Conjugação permanece igual ao padrão"
+    },
+    "contracoes": {
+        "preposicoes": {
+            "de": "de (em vez de do/da)",
+            "em": "ne (em vez de no/na)",
+            "por": "pele (em vez de pelo/pela)",
+            "exemplos": [
+                "de + ê → de (de ê amigue → do amigo/da amiga)",
+                "ne + ê → ne (ne ê casu → no caso/na casa)",
+                "pele + ê → pele (pele ê Lumi → pelo o Lumi/pela a Lumi)"
+            ]
+        }
+    },
+    "excecoes_comuns": [
+        "vida",
+        "água",
+        "fogo",
+        "ar",
+        "terra",
+        "amor",
+        "paz",
+        "flor",
+        "cor",
+        "sol",
+        "mar",
+        "pão"
+    ],
+    "perguntas_frequentes": [
+        {
+            "pergunta": "como usar linguagem neutra no dia a dia?",
+            "resposta": "Comece substituindo artigos (o/a → ê) e pronomes (ele/ela → elu), depois adapte terminações de palavras com gênero (amigo/amiga → amigue). Pratique com exemplos simples antes de frases complexas."
+        },
+        {
+            "pergunta": "quais as vantagens da linguagem neutra?",
+            "resposta": "1. Inclui todas as identidades de gênero\n2. Evita reforçar estereótipos\n3. Promove igualdade na comunicação\n4. Adapta-se à evolução social"
+        }
+    ],
+    "recursos": {
+        "guias": [
+            "Guia completo: https://medium.com/guia-para-linguagem-neutra-pt-br",
+            "Cartilha educativa: https://www.dicionariodainclusao.com.br"
+        ],
+        "ferramentas": [
+            "Tradutor Lumi (/traduzir)",
+            "Banco de palavras (/buscar)",
+            "Professor virtual (/aprender)"
+        ]
+    },
+    "exemplos_praticos": {
+        "frases_simples": [
+            "Ê garote brinca → (O garoto brinca/A garota brinca)",
+            "Ume professore ensina → (Um professor ensina/Uma professora ensina)",
+            "Elu é minhe filhe → (Ele é meu filho/Ela é minha filha)"
+        ],
+        "frases_complexas": [
+            "Es estudantes entregaram os trabalhos ae professore → (Os estudantes entregaram os trabalhos ao professor/As estudantes entregaram os trabalhos à professora)",
+            "Aquelu amigue de minhe tie é muite simpátique → (Aquele amigo do meu tio é muito simpático/Aquela amiga da minha tia é muito simpática)"
+        ]
+    },
+    "dicas_uso": [
+        "Comece usando em contextos informais",
+        "Explique o conceito quando usar pela primeira vez",
+        "Combine com gestos de inclusão",
+        "Respeite quem ainda está aprendendo"
+    ],
+    "glossario": {
+        "ê": "Artigo definido singular neutro (substitui o/a)",
+        "es": "Artigo definido plural neutro (substitui os/as)",
+        "ume": "Artigo indefinido singular neutro (substitui um/uma)",
+        "unes": "Artigo indefinido plural neutro (substitui uns/umas)",
+        "delu": "Pronome possessivo neutro (substitui dele/dela)"
+    }
+}
